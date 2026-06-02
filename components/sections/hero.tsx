@@ -104,16 +104,19 @@ export function Hero() {
       {/* Central content */}
       <div className="relative z-20 max-w-3xl mx-auto px-6 pt-20 lg:pt-32 text-center lg:text-left lg:ml-[15%]">
         <motion.h1
-          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]"
+          className="text-5xl md:text-6xl lg:text-7.5xl font-bold tracking-tight text-foreground leading-[1.08] font-sans"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Your Second Brain for Everything You Save Online
+          Your Second Brain for{" "}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent via-accent/90 to-[#9F85F8] font-serif italic font-normal block mt-2 tracking-normal">
+            Everything You Save Online
+          </span>
         </motion.h1>
 
         <motion.p
-          className="mt-6 text-lg text-muted leading-relaxed max-w-xl"
+          className="mt-6 text-base md:text-lg text-muted font-sans font-light tracking-wide leading-relaxed max-w-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -130,17 +133,17 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <a
-            href="#demo"
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-accent text-white font-medium rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/20"
+            href="/login"
+            className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/25"
           >
-            Try Interactive Demo
-            <ArrowRight className="w-4 h-4" />
+            Get Started Free
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
           <a
             href="#"
-            className="inline-flex items-center gap-2 px-6 py-2.5 border border-border text-foreground font-medium rounded-full hover:bg-white hover:scale-[1.03] active:scale-[0.97] transition-all duration-200"
+            className="inline-flex items-center gap-2 px-7 py-3 border border-border text-foreground text-xs font-bold uppercase tracking-wider rounded-full hover:bg-white hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 bg-transparent backdrop-blur-sm"
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-3.5 h-3.5" />
             Install Extension
           </a>
         </motion.div>

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Menu, X, LayoutDashboard } from "lucide-react";
-import { BRAND_NAME, BRAND_TAGLINE, NAV_LINKS } from "@/lib/constants";
+import { Moon, Menu, X } from "lucide-react";
+import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/constants";
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -18,128 +18,93 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-cream/90 backdrop-blur-xl border-b border-border-light shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
-          : "bg-cream/60 backdrop-blur-md border-b border-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 shrink-0 group">
-          <motion.div
-            className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center"
-            whileHover={{ rotate: 360, scale: 1.1 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            <svg
-              className="w-4 h-4 text-white"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
+    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+      <motion.nav
+        className={`w-full max-w-5xl transition-all duration-300 rounded-full border shadow-lg backdrop-blur-md pointer-events-auto ${scrolled
+            ? "bg-white/40 border-white/30 shadow-[0_8px_32px_0_rgba(124,106,232,0.06)]"
+            : "bg-white/15 border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.015)]"
+          }`}
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="px-6 h-14 flex items-center justify-between">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <motion.div
+              className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center"
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 6v6l4 2" />
-            </svg>
-          </motion.div>
-          <span className="font-semibold text-foreground text-lg group-hover:text-accent transition-colors duration-200">
-            {BRAND_NAME}
-          </span>
-          <span className="text-[10px] font-bold tracking-wider bg-accent/10 text-accent px-2 py-0.5 rounded-full border border-accent/20">
-            {BRAND_TAGLINE}
-          </span>
-        </a>
+              <svg
+                className="w-3.5 h-3.5 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+            </motion.div>
+            <span className="font-semibold text-foreground text-sm group-hover:text-accent transition-colors duration-200">
+              {BRAND_NAME}
+            </span>
+            <span className="text-[9px] font-bold tracking-wider bg-accent/10 text-accent px-2 py-0.5 rounded-full border border-accent/20">
+              {BRAND_TAGLINE}
+            </span>
+          </a>
 
-        {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-1 bg-white/60 rounded-full px-2 py-1 border border-border-light backdrop-blur-sm">
-          {NAV_LINKS.map((link) => (
+          {/* Right side actions - Kept ONLY night mode toggle and Sign Up button */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              className="p-1.5 text-muted hover:text-foreground transition-colors rounded-full hover:bg-white/80"
+              aria-label="Toggle theme"
+            >
+              <Moon className="w-4 h-4" />
+            </button>
             <a
-              key={link.label}
-              href={link.href}
-              className="px-4 py-2 text-sm text-muted hover:text-foreground transition-colors rounded-full hover:bg-white relative group/link"
+              href="/login?mode=signup"
+              className="hidden sm:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
             >
-              {link.label}
-              <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-accent rounded-full transition-all duration-300 group-hover/link:w-3/5" />
+              Sign Up
             </a>
-          ))}
+
+            {/* Mobile menu toggle */}
+            <button
+              type="button"
+              className="sm:hidden p-1.5 text-muted hover:text-foreground"
+              onClick={() => setIsMobileOpen(!isMobileOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
-        {/* Right side actions */}
-        <div className="hidden lg:flex items-center gap-3">
-          <button
-            type="button"
-            className="p-2 text-muted hover:text-foreground transition-colors rounded-full hover:bg-white"
-            aria-label="Toggle theme"
-          >
-            <Moon className="w-5 h-5" />
-          </button>
-          <a
-            href="/dashboard"
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-foreground border border-border rounded-full hover:bg-white hover:border-accent/30 hover:text-accent transition-all duration-200 group/dash"
-          >
-            <LayoutDashboard className="w-4 h-4 group-hover/dash:scale-110 transition-transform duration-200" />
-            Dashboard
-          </a>
-          <a
-            href="#"
-            className="px-5 py-2 text-sm font-medium text-white bg-foreground rounded-full hover:bg-gray-800 hover:shadow-lg transition-all duration-200"
-          >
-            Install Free
-          </a>
-        </div>
-
-        {/* Mobile menu toggle */}
-        <button
-          type="button"
-          className="lg:hidden p-2 text-muted hover:text-foreground"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          aria-label="Toggle mobile menu"
-        >
-          {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden overflow-hidden bg-cream/95 backdrop-blur-xl border-t border-border-light"
-          >
-            <div className="px-6 py-4 flex flex-col gap-2">
-              {NAV_LINKS.map((link) => (
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {isMobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="sm:hidden overflow-hidden bg-cream/95 backdrop-blur-xl border-t border-border-light"
+            >
+              <div className="px-6 py-5 flex flex-col gap-4">
                 <a
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-3 text-sm text-muted hover:text-foreground transition-colors rounded-xl hover:bg-white"
+                  href="/login?mode=signup"
+                  className="w-full text-center py-3 text-sm font-semibold text-white bg-accent rounded-xl hover:bg-accent/90 transition-colors shadow-lg shadow-accent/10"
                   onClick={() => setIsMobileOpen(false)}
                 >
-                  {link.label}
-                </a>
-              ))}
-              <div className="flex gap-3 pt-4 border-t border-border-light mt-2">
-                <a
-                  href="/dashboard"
-                  className="flex-1 inline-flex items-center justify-center gap-2 text-center px-5 py-2 text-sm font-medium text-foreground border border-border rounded-full hover:bg-white transition-colors"
-                >
-                  <LayoutDashboard className="w-4 h-4" />
-                  Dashboard
-                </a>
-                <a
-                  href="#"
-                  className="flex-1 text-center px-5 py-2 text-sm font-medium text-white bg-foreground rounded-full hover:bg-gray-800 transition-colors"
-                >
-                  Install Free
+                  Sign Up
                 </a>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </div>
   );
 }

@@ -55,13 +55,27 @@ html {
 
 /* Floating animation for hero cards */
 @keyframes float-gentle {
-  0%, 100% { transform: translateY(0px) rotate(var(--float-rotation, 0deg)); }
-  50% { transform: translateY(-12px) rotate(var(--float-rotation, 0deg)); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(var(--float-rotation, 0deg));
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(var(--float-rotation, 0deg));
+  }
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .animate-float-gentle {
@@ -73,12 +87,29 @@ html {
 }
 
 /* Staggered float delays */
-.float-delay-1 { animation-delay: 0s; }
-.float-delay-2 { animation-delay: 1s; }
-.float-delay-3 { animation-delay: 2s; }
-.float-delay-4 { animation-delay: 3s; }
-.float-delay-5 { animation-delay: 4s; }
-.float-delay-6 { animation-delay: 5s; }
+.float-delay-1 {
+  animation-delay: 0s;
+}
+
+.float-delay-2 {
+  animation-delay: 1s;
+}
+
+.float-delay-3 {
+  animation-delay: 2s;
+}
+
+.float-delay-4 {
+  animation-delay: 3s;
+}
+
+.float-delay-5 {
+  animation-delay: 4s;
+}
+
+.float-delay-6 {
+  animation-delay: 5s;
+}
 
 /* Architecture circular step connector */
 .architecture-flow-icon {
@@ -100,13 +131,11 @@ html {
 
 /* CTA gradient glow */
 .cta-glow {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(124, 106, 232, 0.12) 0%,
-    rgba(196, 181, 253, 0.08) 30%,
-    rgba(236, 72, 153, 0.06) 50%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center,
+      rgba(124, 106, 232, 0.12) 0%,
+      rgba(196, 181, 253, 0.08) 30%,
+      rgba(236, 72, 153, 0.06) 50%,
+      transparent 70%);
 }
 
 /* Footer watermark text */
@@ -133,14 +162,21 @@ html {
   grid-template-rows: 1fr;
 }
 
-.faq-answer > div {
+.faq-answer>div {
   overflow: hidden;
 }
 
 /* Typing cursor blink */
 @keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-cursor-blink {

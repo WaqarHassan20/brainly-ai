@@ -219,20 +219,25 @@ const visualComponents: Record<FeatureCardType["visualType"], React.FC> = {
 function FeatureCardComponent({
   card,
   index,
+  isLarge = false,
 }: {
   readonly card: FeatureCardType;
   readonly index: number;
+  readonly isLarge?: boolean;
 }) {
   const Visual = visualComponents[card.visualType];
 
   return (
-    <AnimatedWrapper delay={0.1 * index}>
-      <div className="bg-card rounded-2xl border border-border overflow-hidden h-full hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer group/card">
-        <div className="p-4">
+    <AnimatedWrapper
+      delay={0.1 * index}
+      className={isLarge ? "md:col-span-2" : "md:col-span-1"}
+    >
+      <div className={`bg-card rounded-3xl border border-border overflow-hidden h-full hover:scale-[1.01] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer group/card flex flex-col ${isLarge ? "md:flex-row md:items-center" : ""}`}>
+        <div className={`p-4 shrink-0 ${isLarge ? "w-full md:w-[45%]" : "w-full"}`}>
           <Visual />
         </div>
-        <div className="px-6 pb-6">
-          <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
+        <div className={`px-6 pb-6 pt-3 md:pt-6 ${isLarge ? "flex-1 md:pb-6" : ""}`}>
+          <h3 className="text-lg font-bold text-foreground tracking-tight">{card.title}</h3>
           <p className="text-sm text-muted mt-2 leading-relaxed">
             {card.description}
           </p>
@@ -252,10 +257,18 @@ export function Features() {
           subtitle="Everything you need to capture, organize, and retrieve the digital knowledge you encounter every day — effortlessly."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {FEATURE_CARDS.map((card, index) => (
-            <FeatureCardComponent key={card.title} card={card} index={index} />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          {FEATURE_CARDS.map((card, index) => {
+            const isLarge = index === 0 || index === 5;
+            return (
+              <FeatureCardComponent
+                key={card.title}
+                card={card}
+                index={index}
+                isLarge={isLarge}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

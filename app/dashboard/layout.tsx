@@ -8,15 +8,10 @@ import {
   LayoutDashboard,
   Search,
   BookmarkPlus,
-  Folder,
-  BarChart3,
   Settings,
-  Bell,
   ChevronLeft,
   Menu,
   LogOut,
-  HelpCircle,
-  Sparkles,
 } from "lucide-react";
 import { BRAND_NAME } from "@/lib/constants";
 
@@ -24,13 +19,10 @@ const sidebarLinks = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { label: "Search Memory", href: "/dashboard/search", icon: Search },
   { label: "Saved Items", href: "/dashboard/saved", icon: BookmarkPlus },
-  { label: "Collections", href: "/dashboard/collections", icon: Folder },
-  { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
 ] as const;
 
 const bottomLinks = [
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
-  { label: "Help & Support", href: "/dashboard/help", icon: HelpCircle },
 ] as const;
 
 export default function DashboardLayout({
@@ -43,7 +35,8 @@ export default function DashboardLayout({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-cream flex">
+    // Changed bg-cream to #F2EFE9 to provide solid contrast and ease brightness
+    <div className="min-h-screen bg-[#F2EFE9] flex">
       {/* Mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
@@ -102,7 +95,7 @@ export default function DashboardLayout({
           </button>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation - Cleaned from help support, analytics, collections, search card */}
         <nav className="flex-1 overflow-y-auto py-4 px-3">
           <div className="space-y-1">
             {sidebarLinks.map((link) => {
@@ -139,29 +132,6 @@ export default function DashboardLayout({
               );
             })}
           </div>
-
-          {/* AI Search shortcut */}
-          {!collapsed && (
-            <div className="mt-6 mx-1">
-              <div className="bg-gradient-to-br from-accent/5 to-purple-50 border border-accent/15 rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="w-4 h-4 text-accent" />
-                  <span className="text-xs font-bold text-accent tracking-wide">
-                    AI SEARCH
-                  </span>
-                </div>
-                <p className="text-xs text-muted leading-relaxed mb-3">
-                  Ask anything in natural language to find saved items instantly.
-                </p>
-                <button
-                  type="button"
-                  className="w-full text-left px-3 py-2 bg-white/80 border border-border-light rounded-lg text-xs text-muted hover:border-accent/30 transition-colors"
-                >
-                  &quot;that dopamine video...&quot;
-                </button>
-              </div>
-            </div>
-          )}
         </nav>
 
         {/* Bottom links */}
@@ -213,7 +183,7 @@ export default function DashboardLayout({
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top bar */}
+        {/* Top bar - removed shortcuts, notifications, and bells */}
         <header className="h-16 flex items-center gap-4 px-6 bg-white/60 backdrop-blur-md border-b border-border-light sticky top-0 z-30">
           <button
             type="button"
@@ -224,36 +194,23 @@ export default function DashboardLayout({
             <Menu className="w-5 h-5" />
           </button>
 
-          {/* Search bar */}
-          <div className="flex-1 max-w-xl">
-            <div className="flex items-center gap-2 bg-cream/80 border border-border-light rounded-full px-4 py-2 focus-within:border-accent/30 focus-within:bg-white transition-all">
-              <Search className="w-4 h-4 text-muted shrink-0" />
-              <input
-                type="text"
-                placeholder="Search your memory vault..."
-                className="flex-1 bg-transparent text-sm text-foreground placeholder:text-gray-400 outline-none"
-              />
-              <kbd className="hidden sm:inline-flex text-[10px] font-medium text-muted bg-white border border-border-light rounded px-1.5 py-0.5">
-                ⌘K
-              </kbd>
+          {/* Search bar - centered horizontally in the page header */}
+          <div className="flex-1 flex justify-center">
+            <div className="w-full max-w-xl">
+              <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 focus-within:border-accent/40 shadow-sm focus-within:shadow transition-all">
+                <Search className="w-4 h-4 text-muted shrink-0" />
+                <input
+                  type="text"
+                  placeholder="Search your memory vault..."
+                  className="flex-1 bg-transparent text-sm text-foreground placeholder:text-gray-400 outline-none"
+                />
+              </div>
             </div>
-          </div>
-
-          {/* Top-right actions */}
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              className="relative p-2 text-muted hover:text-foreground hover:bg-gray-50 rounded-full transition-colors"
-              aria-label="Notifications"
-            >
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full" />
-            </button>
           </div>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main className="flex-1 flex flex-col min-h-0 overflow-hidden">{children}</main>
       </div>
     </div>
   );

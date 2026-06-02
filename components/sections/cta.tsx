@@ -3,41 +3,17 @@
 import { motion } from "framer-motion";
 import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 
-/* ── Arc icon definitions ── */
-const leftArcIcons = [
-  { icon: "▶", label: "YouTube", color: "text-red-500", bg: "bg-red-50", border: "border-red-200", glow: "shadow-red-200/60" },
-  { icon: "🎧", label: "Spotify", color: "text-green-600", bg: "bg-green-50", border: "border-green-200", glow: "shadow-green-200/60" },
-  { icon: "𝕏", label: "Twitter", color: "text-foreground", bg: "bg-gray-100", border: "border-gray-300", glow: "shadow-gray-300/60" },
-  { icon: "📑", label: "Docs", color: "text-blue-500", bg: "bg-blue-50", border: "border-blue-200", glow: "shadow-blue-200/60" },
-  { icon: "💬", label: "Reddit", color: "text-orange-500", bg: "bg-orange-50", border: "border-orange-200", glow: "shadow-orange-200/60" },
-  { icon: "🌐", label: "Web", color: "text-cyan-500", bg: "bg-cyan-50", border: "border-cyan-200", glow: "shadow-cyan-200/60" },
-] as const;
+import { leftArcIcons, rightArcIcons } from "@/lib/social-icons";
 
-const rightArcIcons = [
-  { icon: "📷", label: "Instagram", color: "text-pink-500", bg: "bg-pink-50", border: "border-pink-200", glow: "shadow-pink-200/60" },
-  { icon: "⌘", label: "GitHub", color: "text-gray-700", bg: "bg-gray-50", border: "border-gray-300", glow: "shadow-gray-300/60" },
-  { icon: "🔌", label: "Extension", color: "text-yellow-600", bg: "bg-yellow-50", border: "border-yellow-200", glow: "shadow-yellow-200/60" },
-  { icon: "🎯", label: "Target", color: "text-rose-500", bg: "bg-rose-50", border: "border-rose-200", glow: "shadow-rose-200/60" },
-  { icon: "💡", label: "Ideas", color: "text-amber-500", bg: "bg-amber-50", border: "border-amber-200", glow: "shadow-amber-200/60" },
-  { icon: "✉", label: "Email", color: "text-teal-600", bg: "bg-teal-50", border: "border-teal-200", glow: "shadow-teal-200/60" },
-] as const;
-
-/**
- * Compute (x, y) for an icon on a semicircular arc.
- * side: "left" arc bows leftward, "right" bows rightward
- * index: 0-based position in the list
- * total: total number of icons on this side
- * radius: arc radius in px
- */
 function arcPosition(
   side: "left" | "right",
   index: number,
   total: number,
   radius: number
 ) {
-  // Distribute icons evenly from top to bottom along the arc
-  const startAngle = -Math.PI * 0.4; // ≈ -72°
-  const endAngle = Math.PI * 0.4;    // ≈ +72°
+  // Distribute icons evenly along a tighter, taller half-circle arc hugging the center
+  const startAngle = -Math.PI * 0.44; // ≈ -80°
+  const endAngle = Math.PI * 0.44;    // ≈ +80°
   const angle =
     total === 1
       ? 0
@@ -50,67 +26,73 @@ function arcPosition(
 }
 
 function ArcIcon({
-  icon,
+  icon: IconComponent,
   label,
   bg,
   border,
   glow,
-  color,
+  link,
   index,
   side,
   total,
 }: {
-  readonly icon: string;
+  readonly icon: React.ComponentType<{ className?: string }>;
   readonly label: string;
   readonly bg: string;
   readonly border: string;
   readonly glow: string;
-  readonly color: string;
+  readonly link: string;
   readonly index: number;
   readonly side: "left" | "right";
   readonly total: number;
 }) {
-  const radius = 200;
+  const radius = 175; // Reduced radius from 220 to 175 to pack them very close to the center
   const { x, y } = arcPosition(side, index, total, radius);
 
   return (
-    <motion.div
-      className={`absolute w-16 h-16 rounded-full ${bg} border ${border} flex items-center justify-center shadow-lg ${glow} cursor-pointer backdrop-blur-sm`}
+    <motion.a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`absolute w-12.5 h-12.5 rounded-full ${bg} border ${border} flex items-center justify-center shadow-md ${glow} cursor-pointer backdrop-blur-sm z-20`}
       style={{
         left: "50%",
         top: "50%",
-        marginLeft: x - 32,
-        marginTop: y - 32,
+        marginLeft: x - 25,
+        marginTop: y - 25,
       }}
-      /* Continuous idle animation: gentle float + subtle glow pulse */
+      /* Idle animation: floating with subtle brand scale shifts */
       animate={{
-        y: [0, -6, 0, 4, 0],
-        scale: [1, 1.06, 1, 0.97, 1],
-        rotate: [0, index % 2 === 0 ? 5 : -5, 0, index % 2 === 0 ? -3 : 3, 0],
+        y: [0, -5, 0, 3, 0],
+        scale: [1, 1.04, 1, 0.97, 1],
+        rotate: [0, index % 2 === 0 ? 3 : -3, 0, index % 2 === 0 ? -1 : 1, 0],
       }}
       transition={{
-        duration: 5 + index * 0.6,
+        duration: 5.5 + index * 0.4,
         repeat: Infinity,
         ease: "easeInOut",
-        delay: index * 0.35,
+        delay: index * 0.2,
       }}
       whileHover={{
         scale: 1.25,
         rotate: 0,
-        boxShadow: "0 0 24px rgba(124, 106, 232, 0.35)",
-        transition: { duration: 0.2 },
+        boxShadow: "0 0 20px rgba(124, 106, 232, 0.35)",
+        zIndex: 50,
+        transition: { duration: 0.15 },
       }}
-      whileTap={{ scale: 0.92 }}
+      whileTap={{ scale: 0.94 }}
       title={label}
     >
-      <span className={`text-2xl ${color} select-none`}>{icon}</span>
-    </motion.div>
+      <div className="select-none flex items-center justify-center w-full h-full scale-95">
+        <IconComponent className="w-5.5 h-5.5 shrink-0" />
+      </div>
+    </motion.a>
   );
 }
 
 /* ── Connecting arc line (SVG) ── */
 function ArcLine({ side }: { readonly side: "left" | "right" }) {
-  const radius = 200;
+  const radius = 175; // Reduced matching line radius
   const total = 6;
   const points: { x: number; y: number }[] = [];
 
@@ -119,14 +101,14 @@ function ArcLine({ side }: { readonly side: "left" | "right" }) {
     points.push({ x: pos.x + 250, y: pos.y + 250 });
   }
 
-  // Build a smooth SVG path through all points
+  // Draw smooth arc curve
   const d = points
     .map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`))
     .join(" ");
 
   return (
     <svg
-      className="absolute inset-0 pointer-events-none"
+      className="absolute inset-0 pointer-events-none z-10"
       style={{ left: "50%", top: "50%", marginLeft: -250, marginTop: -250 }}
       width={500}
       height={500}
@@ -136,19 +118,19 @@ function ArcLine({ side }: { readonly side: "left" | "right" }) {
       <motion.path
         d={d}
         stroke="url(#arcGradient)"
-        strokeWidth={2}
-        strokeDasharray="6 4"
+        strokeWidth={1.5}
+        strokeDasharray="5 3"
         strokeLinecap="round"
         fill="none"
         initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 0.5 }}
+        animate={{ pathLength: 1, opacity: 0.4 }}
         transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
       />
       <defs>
         <linearGradient id="arcGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#7C6AE8" stopOpacity={0.4} />
-          <stop offset="50%" stopColor="#C4B5FD" stopOpacity={0.6} />
-          <stop offset="100%" stopColor="#7C6AE8" stopOpacity={0.4} />
+          <stop offset="0%" stopColor="#7C6AE8" stopOpacity={0.2} />
+          <stop offset="50%" stopColor="#C4B5FD" stopOpacity={0.4} />
+          <stop offset="100%" stopColor="#7C6AE8" stopOpacity={0.2} />
         </linearGradient>
       </defs>
     </svg>
@@ -163,11 +145,11 @@ export function CTA() {
         <div className="cta-glow w-[900px] h-[700px] rounded-full group-hover:scale-105 transition-transform duration-700" />
       </div>
 
-      {/* Arc icons — left side */}
+      {/* Arc icons — left & right side holding the 12 brand icons, brought much closer */}
       <div className="absolute inset-0 hidden md:block" style={{ pointerEvents: "none" }}>
         <div className="relative w-full h-full" style={{ pointerEvents: "auto" }}>
-          {/* Left arc connector line */}
-          <div className="absolute" style={{ left: "15%", top: "50%", transform: "translate(-50%, -50%)" }}>
+          {/* Left arc connector line - moved from 15% to 28% */}
+          <div className="absolute" style={{ left: "28%", top: "50%", transform: "translate(-50%, -50%)" }}>
             <ArcLine side="left" />
             {leftArcIcons.map((item, i) => (
               <ArcIcon
@@ -177,7 +159,7 @@ export function CTA() {
                 bg={item.bg}
                 border={item.border}
                 glow={item.glow}
-                color={item.color}
+                link={item.link}
                 index={i}
                 side="left"
                 total={leftArcIcons.length}
@@ -185,8 +167,8 @@ export function CTA() {
             ))}
           </div>
 
-          {/* Right arc connector line */}
-          <div className="absolute" style={{ left: "85%", top: "50%", transform: "translate(-50%, -50%)" }}>
+          {/* Right arc connector line - moved from 85% to 72% */}
+          <div className="absolute" style={{ left: "72%", top: "50%", transform: "translate(-50%, -50%)" }}>
             <ArcLine side="right" />
             {rightArcIcons.map((item, i) => (
               <ArcIcon
@@ -196,7 +178,7 @@ export function CTA() {
                 bg={item.bg}
                 border={item.border}
                 glow={item.glow}
-                color={item.color}
+                link={item.link}
                 index={i}
                 side="right"
                 total={rightArcIcons.length}
@@ -221,7 +203,7 @@ export function CTA() {
               href="/dashboard"
               className="px-6 py-2.5 text-sm font-semibold border border-border text-foreground rounded-full bg-white hover:bg-cream hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-sm"
             >
-              Go to Dashboard
+              Sign Up
             </a>
             <a
               href="#"
