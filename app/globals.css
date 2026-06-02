@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: #FAF9F7;
+  --color-cream-dark: #F3F1ED;
+  --color-foreground: #1A1A1A;
+  --color-muted: #6B7280;
+  --color-accent: #7C6AE8;
+  --color-accent-light: #EDE9FE;
+  --color-accent-soft: #C4B5FD;
+  --color-card: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section label line decoration */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  text-shadow: 0 0 8px rgba(124, 106, 232, 0.25);
+}
+
+.section-label::before {
+  content: "";
+  width: 3.5rem;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-accent));
+}
+
+.section-label::after {
+  content: "";
+  width: 3.5rem;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-accent), transparent);
+}
+
+/* Floating animation for hero cards */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(var(--float-rotation, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--float-rotation, 0deg)); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Staggered float delays */
+.float-delay-1 { animation-delay: 0s; }
+.float-delay-2 { animation-delay: 1s; }
+.float-delay-3 { animation-delay: 2s; }
+.float-delay-4 { animation-delay: 3s; }
+.float-delay-5 { animation-delay: 4s; }
+.float-delay-6 { animation-delay: 5s; }
+
+/* Architecture circular step connector */
+.architecture-flow-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--color-card);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-foreground);
+}
+
+/* Comparison table right column gradient */
+.comparison-brainly-col {
+  background: linear-gradient(135deg, #f0edff 0%, #e8f4ff 100%);
+}
+
+/* CTA gradient glow */
+.cta-glow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(124, 106, 232, 0.12) 0%,
+    rgba(196, 181, 253, 0.08) 30%,
+    rgba(236, 72, 153, 0.06) 50%,
+    transparent 70%
+  );
+}
+
+/* Footer watermark text */
+.footer-watermark {
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.03);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* FAQ accordion transition */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq-answer[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer > div {
+  overflow: hidden;
+}
+
+/* Typing cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s ease-in-out infinite;
+}
+
+/* Dashboard scrollbar */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
 }
