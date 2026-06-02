@@ -135,14 +135,13 @@ export function InteractiveDemo() {
                         {activeResponse.aiResponse}
                       </motion.p>
 
-                      {/* Result card */}
                       <motion.div
-                        className="bg-gray-50 border border-border-light rounded-xl p-4 flex gap-4"
+                        className="bg-gray-50 border border-border-light rounded-xl p-4 flex flex-col sm:flex-row gap-3 sm:gap-4"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                       >
-                        <div className="w-20 h-16 bg-gray-200 rounded-lg flex items-center justify-center shrink-0">
+                        <div className="w-20 h-16 bg-gray-200 rounded-lg flex items-center justify-center shrink-0 self-start">
                           <span className="text-red-500 text-2xl">▶</span>
                         </div>
                         <div className="min-w-0">

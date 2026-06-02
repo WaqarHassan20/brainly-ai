@@ -30,9 +30,9 @@ export function FAQ() {
               </div>
               <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight">
                 Frequently
-                <br />
+                <br className="hidden lg:inline" />{" "}
                 Asked
-                <br />
+                <br className="hidden lg:inline" />{" "}
                 Questions
               </h2>
               <p className="text-muted mt-4 leading-relaxed">

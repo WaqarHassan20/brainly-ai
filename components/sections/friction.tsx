@@ -87,12 +87,12 @@ export function Friction() {
                 {TRADITIONAL_BOOKMARKS.map((bookmark) => (
                   <div
                     key={bookmark.platform}
-                    className="flex items-center justify-between py-4 border-b border-dashed border-border-light last:border-b-0 hover:bg-cream/40 px-2 rounded-lg transition-colors duration-200"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-4 border-b border-dashed border-border-light last:border-b-0 hover:bg-cream/40 px-2 rounded-lg transition-colors duration-200"
                   >
-                    <span className="text-sm font-mono text-muted border border-border rounded-md px-3 py-1">
+                    <span className="text-sm font-mono text-muted border border-border rounded-md px-3 py-1 self-start sm:self-auto">
                       {bookmark.platform}
                     </span>
-                    <span className="text-sm text-muted">
+                    <span className="text-sm text-muted sm:text-right">
                       {bookmark.description}
                     </span>
                   </div>

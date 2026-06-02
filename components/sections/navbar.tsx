@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Menu, X } from "lucide-react";
-import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/constants";
+import { BRAND_NAME, BRAND_TAGLINE, NAV_LINKS } from "@/lib/constants";
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export function Navbar() {
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
       <motion.nav
-        className={`w-full max-w-5xl transition-all duration-300 rounded-full border shadow-lg backdrop-blur-md pointer-events-auto ${scrolled
+        className={`w-full max-w-7xl transition-all duration-300 rounded-full border shadow-lg backdrop-blur-md pointer-events-auto ${scrolled
             ? "bg-white/40 border-white/30 shadow-[0_8px_32px_0_rgba(124,106,232,0.06)]"
             : "bg-white/15 border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.015)]"
           }`}
@@ -55,6 +55,19 @@ export function Navbar() {
             </span>
           </a>
 
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs font-semibold text-muted hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
           {/* Right side actions - Kept ONLY night mode toggle and Sign Up button */}
           <div className="flex items-center gap-3">
             <button
@@ -66,7 +79,7 @@ export function Navbar() {
             </button>
             <a
               href="/login?mode=signup"
-              className="hidden sm:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+              className="hidden md:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
             >
               Sign Up
             </a>
@@ -74,7 +87,7 @@ export function Navbar() {
             {/* Mobile menu toggle */}
             <button
               type="button"
-              className="sm:hidden p-1.5 text-muted hover:text-foreground"
+              className="md:hidden p-1.5 text-muted hover:text-foreground"
               onClick={() => setIsMobileOpen(!isMobileOpen)}
               aria-label="Toggle mobile menu"
             >
@@ -90,9 +103,23 @@ export function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="sm:hidden overflow-hidden bg-cream/95 backdrop-blur-xl border-t border-border-light"
+              className="md:hidden overflow-hidden bg-cream/95 backdrop-blur-xl border-t border-border-light"
             >
               <div className="px-6 py-5 flex flex-col gap-4">
+                {/* Mobile Navigation Links */}
+                <div className="flex flex-col gap-1 pb-2 border-b border-border-light/40">
+                  {NAV_LINKS.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="text-sm font-semibold text-muted hover:text-foreground py-2 transition-colors"
+                      onClick={() => setIsMobileOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+
                 <a
                   href="/login?mode=signup"
                   className="w-full text-center py-3 text-sm font-semibold text-white bg-accent rounded-xl hover:bg-accent/90 transition-colors shadow-lg shadow-accent/10"

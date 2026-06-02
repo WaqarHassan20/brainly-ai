@@ -47,7 +47,8 @@ export function Comparison() {
         />
 
         <AnimatedWrapper delay={0.2}>
-          <div className="bg-card rounded-2xl border border-border overflow-hidden mt-8 hover:shadow-xl transition-shadow duration-300">
+          {/* Desktop Table View */}
+          <div className="hidden md:block bg-card rounded-2xl border border-border overflow-hidden mt-8 hover:shadow-xl transition-shadow duration-300">
             {/* Table Header */}
             <div className="grid grid-cols-3">
               <div className="px-6 py-5 text-sm font-bold tracking-wider uppercase text-muted">
@@ -88,6 +89,50 @@ export function Comparison() {
                   <span className="text-sm font-semibold text-foreground">
                     {row.brainlyText}
                   </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Card List View */}
+          <div className="block md:hidden space-y-4 mt-8">
+            {COMPARISON_ROWS.map((row) => (
+              <div
+                key={row.feature}
+                className="bg-card rounded-2xl border border-border p-5 space-y-4 hover:shadow-md transition-shadow"
+              >
+                <h4 className="font-bold text-foreground text-sm border-b border-border-light pb-2">
+                  {row.feature}
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Bookmarks */}
+                  <div className="space-y-1.5">
+                    <span className="text-[10px] font-bold text-muted uppercase tracking-wider block">
+                      Bookmarks & Saves
+                    </span>
+                    <div className="flex items-start gap-2">
+                      <span className="mt-0.5 shrink-0">
+                        {bookmarkIcons[row.bookmarkIcon]}
+                      </span>
+                      <span className="text-xs text-muted leading-relaxed">
+                        {row.bookmarkText}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Brainly AI */}
+                  <div className="space-y-1.5 bg-accent-light/20 p-3 rounded-xl border border-accent/10">
+                    <span className="text-[10px] font-bold text-accent uppercase tracking-wider block">
+                      ✦ Brainly AI
+                    </span>
+                    <div className="flex items-start gap-2">
+                      <span className="mt-0.5 shrink-0">
+                        {brainlyIcons[row.brainlyIcon]}
+                      </span>
+                      <span className="text-xs font-semibold text-foreground leading-relaxed">
+                        {row.brainlyText}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
