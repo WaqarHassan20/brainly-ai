@@ -302,10 +302,10 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <a
-            href="/login"
+            href="/login?mode=signup"
             className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/25"
           >
-            Get Started Free
+            Sign Up
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
           <a

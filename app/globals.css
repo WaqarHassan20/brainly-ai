@@ -18,6 +18,21 @@ body {
   background-color: var(--color-cream);
   color: var(--color-foreground);
   font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Dark Theme Overrides ── */
+.dark {
+  --color-cream: #0B0F19;
+  --color-cream-dark: #080C14;
+  --color-foreground: #F9FAFB;
+  --color-muted: #9CA3AF;
+  --color-accent: #9F85F8;
+  --color-accent-light: #1E1B4B;
+  --color-accent-soft: #312E81;
+  --color-card: #111827;
+  --color-border: #1F2937;
+  --color-border-light: #1F2937;
 }
 
 /* Smooth scrolling for anchor links */

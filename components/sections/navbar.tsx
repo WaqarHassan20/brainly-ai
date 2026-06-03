@@ -2,8 +2,29 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { BRAND_NAME, BRAND_TAGLINE, NAV_LINKS } from "@/lib/constants";
+
+/* Custom Chrome icon SVG */
+function ChromeIcon({ className }: { readonly className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="4" />
+      <line x1="21.17" y1="8" x2="12" y2="8" />
+      <line x1="3.95" y1="6.06" x2="8.54" y2="14" />
+      <line x1="10.88" y1="21.94" x2="15.46" y2="14" />
+    </svg>
+  );
+}
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -55,33 +76,36 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links — slightly larger text */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-xs font-semibold text-muted hover:text-foreground transition-colors duration-200"
+                className="text-[13px] font-semibold text-muted hover:text-foreground transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          {/* Right side actions - Kept ONLY night mode toggle and Sign Up button */}
+          {/* Right side actions — Install Extension icon + Login button */}
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="p-1.5 text-muted hover:text-foreground transition-colors rounded-full hover:bg-white/80"
-              aria-label="Toggle theme"
-            >
-              <Moon className="w-4 h-4" />
-            </button>
+            {/* Install Extension icon-only button (custom Chrome icon) */}
             <a
-              href="/login?mode=signup"
+              href="#"
+              className="p-1.5 text-muted hover:text-accent transition-colors rounded-full hover:bg-accent/10"
+              aria-label="Install Chrome Extension"
+              title="Install Chrome Extension"
+            >
+              <ChromeIcon className="w-[18px] h-[18px]" />
+            </a>
+            {/* Login button (was "Sign Up") */}
+            <a
+              href="/login"
               className="hidden md:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
             >
-              Sign Up
+              Login
             </a>
 
             {/* Mobile menu toggle */}
@@ -121,11 +145,11 @@ export function Navbar() {
                 </div>
 
                 <a
-                  href="/login?mode=signup"
+                  href="/login"
                   className="w-full text-center py-3 text-sm font-semibold text-white bg-accent rounded-xl hover:bg-accent/90 transition-colors shadow-lg shadow-accent/10"
                   onClick={() => setIsMobileOpen(false)}
                 >
-                  Sign Up
+                  Login
                 </a>
               </div>
             </motion.div>
