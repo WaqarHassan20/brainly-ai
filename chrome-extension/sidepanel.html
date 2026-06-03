@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainly AI Vault Companion</title>
+  <link rel="stylesheet" href="sidepanel.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Brainly AI</h1>
+          <span class="badge">Companion</span>
+        </div>
+      </div>
+      <button id="toggle-settings-btn" class="icon-btn" title="Extension Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Alerts -->
+      <div id="status-alert" class="alert hidden"></div>
+
+      <!-- Settings Panel (sliding/toggling) -->
+      <section id="settings-panel" class="settings-panel card hidden">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">Sync Settings</h2>
+        </div>
+        <p class="description-text">Paste your secret Sync Key and API URL to connect this extension to your vault.</p>
+        
+        <div class="input-group">
+          <label for="sync-key-input">Sync Key (Clerk ID)</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+            </svg>
+            <input type="password" id="sync-key-input" placeholder="user_2..." />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="api-url-input">API Server URL</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+            </svg>
+            <input type="url" id="api-url-input" placeholder="http://localhost:3000/api/save" />
+          </div>
+        </div>
+
+        <button id="save-settings-btn" class="btn primary-btn">Save Settings</button>
+      </section>
+
+      <!-- Save Link Form -->
+      <section id="save-form-panel" class="save-form card">
+        <div class="section-title-wrapper">
+          <svg class="section-icon text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+          <h2 class="section-title">Index Current Page</h2>
+        </div>
+
+        <form id="save-link-form" onsubmit="return false;">
+          <!-- Title Input -->
+          <div class="input-group">
+            <label for="title">Title</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V3.5A2.5 2.5 0 0 1 6.5 1H20v21H6.5a2.5 2.5 0 0 1-2.5-2.5z" />
+              </svg>
+              <input type="text" id="title" placeholder="Page Title" required />
+            </div>
+          </div>
+
+          <!-- URL Input -->
+          <div class="input-group">
+            <label for="url">URL</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+              <input type="url" id="url" placeholder="https://..." required />
+            </div>
+          </div>
+
+          <!-- Tags Input -->
+          <div class="input-group">
+            <label for="tag-input">Tags</label>
+            <div class="tags-container" id="tags-container">
+              <!-- Tags injected here -->
+              <input type="text" id="tag-input" placeholder="Add tag and press Enter..." />
+            </div>
+          </div>
+
+          <button id="save-btn" type="submit" class="btn primary-btn submit-btn">
+            <span id="save-btn-text">Save to Vault</span>
+            <span id="save-btn-spinner" class="spinner hidden"></span>
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Logged in user syncs automatically</p>
+      <a href="http://localhost:3000/dashboard" target="_blank" id="dashboard-footer-link" class="vault-link">Go to Dashboard</a>
+    </footer>
+  </div>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

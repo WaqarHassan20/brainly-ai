@@ -253,7 +253,7 @@ function extractDisplayTitle(urlStr: string, platform: string): string {
 }
 
 // Parse details based on URL domain
-function parseUrlDetails(urlStr: string) {
+export async function parseUrlDetails(urlStr: string) {
   let hostname = "";
   try {
     const parsed = new URL(urlStr);
@@ -343,7 +343,7 @@ export async function saveSavedItem(url: string, title: string, tagNames: string
   }
 
   // Parse URL details to resolve platform, etc.
-  const details = parseUrlDetails(url);
+  const details = await parseUrlDetails(url);
 
   const description = "AI synthesis pending...";
 

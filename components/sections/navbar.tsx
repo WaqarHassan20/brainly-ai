@@ -43,9 +43,9 @@ export function Navbar() {
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
       <motion.nav
-        className={`w-full max-w-7xl transition-all duration-300 rounded-full border shadow-lg backdrop-blur-md pointer-events-auto ${scrolled
-            ? "bg-white/40 border-white/30 shadow-[0_8px_32px_0_rgba(124,106,232,0.06)]"
-            : "bg-white/15 border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.015)]"
+        className={`w-full max-w-7xl transition-all duration-300 rounded-full border backdrop-blur-md pointer-events-auto ${scrolled
+            ? "bg-white/60 border-accent/20 shadow-[0_10px_30px_-10px_rgba(124,106,232,0.15)]"
+            : "bg-white/20 border-white/20 shadow-[0_10px_30px_-10px_rgba(124,106,232,0.06)]"
           }`}
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

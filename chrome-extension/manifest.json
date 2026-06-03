@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Brainly AI Companion",
+  "version": "1.0.0",
+  "description": "Instantly save links, articles, and videos to your Brainly AI Vault.",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://localhost/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {}
+}
