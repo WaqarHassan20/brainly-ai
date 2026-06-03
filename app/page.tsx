@@ -9,6 +9,7 @@ import { Comparison } from "@/components/sections/comparison";
 import { FAQ } from "@/components/sections/faq";
 import { CTA } from "@/components/sections/cta";
 import { Footer } from "@/components/sections/footer";
+import { AuthModal } from "@/components/auth/auth-modal";
 
 export default function Home() {
   return (
@@ -26,6 +27,8 @@ export default function Home() {
         <CTA />
       </main>
       <Footer />
+      <AuthModal />
     </>
   );
 }
+

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,26 +29,45 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`} suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className="min-h-screen flex flex-col" suppressHydrationWarning>{children}</body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#7C6AE8",
+          colorBackground: "#ffffff",
+          colorInputBackground: "#FAF9F7",
+          colorText: "#1c1917",
+          colorTextSecondary: "#706f6c",
+          borderRadius: "0.75rem",
+        },
+        elements: {
+          card: "shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-border-light rounded-2xl",
+          formButtonPrimary: "bg-[#7C6AE8] hover:bg-[#6c59d9] text-white font-semibold transition-all cursor-pointer shadow-md shadow-accent/20",
+          footerActionLink: "text-[#7C6AE8] hover:text-[#6c59d9] transition-colors",
+        },
+      }}
+    >
+      <html lang="en" className={`${inter.variable} antialiased`} suppressHydrationWarning>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  try {
+                    var theme = localStorage.getItem('theme');
+                    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
+                  } catch(e) {}
+                })();
+              `,
+            }}
+          />
+        </head>
+        <body className="min-h-screen flex flex-col" suppressHydrationWarning>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
+

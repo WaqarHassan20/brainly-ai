@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
 
 import { HERO_FLOATING_CARDS } from "@/lib/constants";
 import type { FloatingCardData } from "@/types";
@@ -181,6 +182,7 @@ function FloatingCardItem({ card }: { readonly card: FloatingCardData }) {
 }
 
 export function Hero() {
+  const { isSignedIn } = useAuth();
   const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -301,13 +303,23 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <a
-            href="/login?mode=signup"
-            className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/25"
-          >
-            Sign Up
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+          {!isSignedIn ? (
+            <a
+              href="?auth=signup"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/25"
+            >
+              Sign Up
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          ) : (
+            <a
+              href="/dashboard"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-accent text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/25"
+            >
+              Go to Dashboard
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          )}
           <a
             href="#"
             className="inline-flex items-center gap-2 px-7 py-3 border border-border text-foreground text-xs font-bold uppercase tracking-wider rounded-full hover:bg-white hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 bg-transparent backdrop-blur-sm"

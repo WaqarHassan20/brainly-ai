@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { BRAND_NAME, BRAND_TAGLINE, NAV_LINKS } from "@/lib/constants";
+import { useAuth } from "@clerk/nextjs";
 
 /* Custom Chrome icon SVG */
 function ChromeIcon({ className }: { readonly className?: string }) {
@@ -27,6 +28,7 @@ function ChromeIcon({ className }: { readonly className?: string }) {
 }
 
 export function Navbar() {
+  const { isSignedIn } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
 
@@ -100,13 +102,22 @@ export function Navbar() {
             >
               <ChromeIcon className="w-[18px] h-[18px]" />
             </a>
-            {/* Login button (was "Sign Up") */}
-            <a
-              href="/login"
-              className="hidden md:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-            >
-              Login
-            </a>
+            {/* Login / Dashboard button */}
+            {!isSignedIn ? (
+              <a
+                href="?auth=login"
+                className="hidden md:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+              >
+                Login
+              </a>
+            ) : (
+              <a
+                href="/dashboard"
+                className="hidden md:inline-flex px-4.5 py-1.5 text-xs font-semibold text-white bg-accent rounded-full hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+              >
+                Dashboard
+              </a>
+            )}
 
             {/* Mobile menu toggle */}
             <button
@@ -144,13 +155,23 @@ export function Navbar() {
                   ))}
                 </div>
 
-                <a
-                  href="/login"
-                  className="w-full text-center py-3 text-sm font-semibold text-white bg-accent rounded-xl hover:bg-accent/90 transition-colors shadow-lg shadow-accent/10"
-                  onClick={() => setIsMobileOpen(false)}
-                >
-                  Login
-                </a>
+                {!isSignedIn ? (
+                  <a
+                    href="?auth=login"
+                    className="w-full block text-center py-3 text-sm font-semibold text-white bg-accent rounded-xl hover:bg-accent/90 transition-colors shadow-lg shadow-accent/10"
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    Login
+                  </a>
+                ) : (
+                  <a
+                    href="/dashboard"
+                    className="w-full block text-center py-3 text-sm font-semibold text-white bg-accent rounded-xl hover:bg-accent/90 transition-colors shadow-lg shadow-accent/10"
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    Dashboard
+                  </a>
+                )}
               </div>
             </motion.div>
           )}

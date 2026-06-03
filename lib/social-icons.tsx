@@ -115,6 +115,81 @@ export function NotionIcon({ className = "w-6 h-6" }: { readonly className?: str
   );
 }
 
+export function XIcon({ className = "w-5 h-5" }: { readonly className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="#000000">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+export function WebGlobeIcon({ className = "w-5 h-5" }: { readonly className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="#7C6AE8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
+export function GithubIcon({ className = "w-5 h-5" }: { readonly className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="#24292F">
+      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+    </svg>
+  );
+}
+
+export function FigmaIcon({ className = "w-5 h-5" }: { readonly className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path d="M8 24c2.208 0 4-1.792 4-4v-4H8c-2.208 0-4 1.792-4 4s1.792 4 4 4z" fill="#0ACF83" />
+      <path d="M4 12c0-2.208 1.792-4 4-4h4v8H8c-2.208 0-4-1.792-4-4z" fill="#A259FF" />
+      <path d="M4 4c0-2.208 1.792-4 4-4h4v8H8C5.792 8 4 6.208 4 4z" fill="#F24E1E" />
+      <path d="M12 0h4c2.208 0 4 1.792 4 4s-1.792 4-4 4h-4V0z" fill="#FF7262" />
+      <path d="M20 12c0 2.208-1.792 4-4 4s-4-1.792-4-4 1.792-4 4-4 4 1.792 4 4z" fill="#1ABCFE" />
+    </svg>
+  );
+}
+
+export function MediumIcon({ className = "w-5 h-5" }: { readonly className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="#000000">
+      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+    </svg>
+  );
+}
+
+export function SubstackIcon({ className = "w-5 h-5" }: { readonly className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="#FF6719">
+      <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
+    </svg>
+  );
+}
+
+export function getPlatformIcon(platform: string) {
+  const lower = platform.toLowerCase();
+  if (lower.includes("youtube")) return YouTubeIcon;
+  if (lower.includes("twitter") || lower.includes("x")) return XIcon;
+  if (lower.includes("instagram")) return InstagramIcon;
+  if (lower.includes("spotify")) return SpotifyIcon;
+  if (lower.includes("github")) return GithubIcon;
+  if (lower.includes("figma")) return FigmaIcon;
+  if (lower.includes("medium")) return MediumIcon;
+  if (lower.includes("substack")) return SubstackIcon;
+  if (lower.includes("notion")) return NotionIcon;
+  if (lower.includes("facebook")) return FacebookIcon;
+  if (lower.includes("tiktok")) return TikTokIcon;
+  if (lower.includes("reddit")) return RedditIcon;
+  if (lower.includes("linkedin")) return LinkedinIcon;
+  if (lower.includes("pinterest")) return PinterestIcon;
+  if (lower.includes("threads")) return ThreadsIcon;
+  if (lower.includes("chrome")) return ChromeIcon;
+  return WebGlobeIcon;
+}
+
 export interface SocialIconData {
   readonly icon: React.ComponentType<{ className?: string }>;
   readonly label: string;

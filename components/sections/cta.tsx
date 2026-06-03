@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
+import { useAuth } from "@clerk/nextjs";
 
 import { leftArcIcons, rightArcIcons } from "@/lib/social-icons";
 
@@ -138,6 +139,7 @@ function ArcLine({ side }: { readonly side: "left" | "right" }) {
 }
 
 export function CTA() {
+  const { isSignedIn } = useAuth();
   return (
     <section className="py-24 lg:py-36 relative overflow-hidden group">
       {/* Gradient glow background */}
@@ -199,12 +201,21 @@ export function CTA() {
             Experience conversational recall and free up cognitive bandwidth.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="/dashboard"
-              className="px-6 py-2.5 text-sm font-semibold border border-border text-foreground rounded-full bg-white hover:bg-cream hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-sm"
-            >
-              Sign Up
-            </a>
+            {!isSignedIn ? (
+              <a
+                href="?auth=signup"
+                className="px-6 py-2.5 text-sm font-semibold border border-border text-foreground rounded-full bg-white hover:bg-cream hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-sm"
+              >
+                Sign Up
+              </a>
+            ) : (
+              <a
+                href="/dashboard"
+                className="px-6 py-2.5 text-sm font-semibold border border-border text-foreground rounded-full bg-white hover:bg-cream hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-sm"
+              >
+                Go to Dashboard
+              </a>
+            )}
             <a
               href="#"
               className="px-6 py-2.5 text-sm font-semibold bg-accent text-white rounded-full hover:bg-accent/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 shadow-lg shadow-accent/20"
